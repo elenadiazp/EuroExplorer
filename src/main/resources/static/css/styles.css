@@ -1,0 +1,338 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 200;
+}
+
+.letra {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 100;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.navbar {
+    background-color:#80be74;
+    padding: 15px 20px;
+}
+
+
+.nav-link {
+    font-size: 18px;
+    font-weight: 400;
+    color: white;
+
+}
+
+.nav-link:hover {
+
+    color: rgb(2, 30, 1);
+}
+
+.navbar-brand {
+    font-size: 23px;
+    font-weight: 500;
+    color: white;
+}
+
+.navbar-brand:hover {
+    color: white
+}
+
+nav button:hover {
+    background-color: #fac580;
+
+}
+
+footer {
+    background-color: #80be74;
+    font-size: 18px;
+}
+
+
+
+footer a {
+    color: rgb(41, 88, 40);
+    padding-left: 10px;
+   
+
+}
+
+footer a:hover {
+    color: rgb(2, 30, 1);
+
+}
+
+.hero {
+    background-image: url(https://cdn.pixabay.com/photo/2020/04/25/01/36/road-5089188_1280.jpg);
+    background-size: cover;
+    background-position: center;
+    min-height: 80vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+}
+
+.cristal {
+    background: #00000037;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.container-hero {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.623);
+    padding: 30px;
+    box-sizing: border-box;
+    margin:  15px;
+
+}
+
+.container-hero p {
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+@media (max-width: 576px) {
+    .container-hero p{
+        font-size: 16px;
+    }
+}
+
+.btn-1 {
+    background-color: #fac580;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 350;
+}
+
+.btn-2 {
+    background-color: #fac580;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 350;
+
+
+}
+
+.btn-2:hover,
+.btn-1:hover {
+    background-color: #f4aa29;
+    color: white;
+
+}
+
+
+.fondo {
+    background-color: #d1f6b9;
+    padding: 20px;
+    padding-top: 30px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.ruta {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    height: 100%;
+}
+
+.ruta:hover {
+    transform: scale(1.05);
+
+}
+
+.ruta img {
+    border-bottom: 4px solid #a2eaf7;
+    transition: scale 0.3s ease;
+}
+
+.card-body {
+    padding: 20px;
+
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.card-text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.card-body:hover {
+    background-color: #f9f9f9;
+
+    box-shadow: 0 8 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .container-hero {
+        width: 95%;
+        padding: 20px;
+    }
+
+}
+.img-pais{
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+}
+
+#clear-btn{
+    z-index: 2;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.img-aleatorio{
+    height: 220px;
+    width: 100%;
+    object-fit: cover;
+}
+.table-practica{
+    background-color: white;
+    padding: 20px;
+    border-right: 40px;
+}
+.img-detalle{
+     max-height: 400px;
+     width: 100%;
+     object-fit: cover;
+
+ }
+.custom-img{
+    width: 200px;
+}
+.custom-img-saludo{
+    width: 150px;
+}
+@media (max-width: 576px){
+    .custom-img{
+        width: 100px;
+    }
+    .custom-img-saludo{
+        width: 100px;
+    }
+    
+}
+#clear-btn{
+    z-index: 2;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.btn-quitar {
+    background-color: #80be74;
+    color: white;
+    padding: 10px 15px;
+    border-radius:10px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 350;
+}
+.btn-filtrar {
+    background-color: #fac580;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 10px;
+    font-weight: 350;
+}
+.btn-filtrar:hover{
+    background-color: #f4aa29;
+    color: white;
+
+}
+.btn-quitar:hover{
+    background-color: #5d8b55;
+    color: white;
+}
+.bg-etiqueta{
+    background-color: #a2eaf7;
+    color: black;
+}
+.bg-etiqueta-tipo{
+    background-color: #d1f6b9;
+    color: black;
+}
+.estrellas {
+    direction: rtl; /* Invierte el orden para que la estrella 5 quede a la izquierda */
+    unicode-bidi: bidi-override;
+    font-size: 2em;
+    user-select: none;
+}
+
+.estrellas input[type="radio"] {
+    display: none; /* Oculta los botones radio */
+}
+
+.estrellas label {
+    color: #ddd;  /* Gris claro */
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.estrellas input[type="radio"]:checked ~ label {
+    color: gold;  /* Estrellas doradas para la puntuación */
+}
+
+/* Para que al pasar el mouse se pinten estrellas */
+.estrellas label:hover,
+.estrellas label:hover ~ label {
+    color: gold;
+}
+.accordion-button:not(.collapsed){
+    background-color:#80be74;
+    color: white;
+
+}
+.accordion-button{
+    background-color: white;
+    color: black;
+}
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgb(187, 228, 185);
+}

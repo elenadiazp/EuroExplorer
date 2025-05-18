@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>EuroExplorer</title>
+    <link rel="icon" type="image/png" href="/img/osohola.png">
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-md ">
+        <div class="container ">
+            <a class="navbar-brand " th:href="@{/}"><img th:src="@{/img/logoblanco.png}" class="img-fluid"
+                                                         width="200px"> </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  align-items-center" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/}" aria-current="page">Inicio
+                            <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/paises/pais}">Paises</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/rutas/aleatorias}">Aleatrio</a>
+                    </li>
+                </ul>
+                <div sec:authorize="!isAuthenticated()">
+                    <a class="btn-1 " th:href="@{/login}">Iniciar sesión</a>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="dropdown menu-desplegable">
+                    <a href="#" class="btn-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class=" fas fa-user-circle fa-lg"></i> Usuario
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end lista-menu">
+                        <li><a class="dropdown-item" th:href="@{/favoritos}">❤️ Favoritos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/faq}">❓ Preguntas frecuentes</a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <a class="btn-1 " th:href="@{/logout}">Cerrar sesión</a>
+                            </form>
+                        </li>
+                    </ul>
+
+
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+
+<main>
+    <section class="container mt-4 ">
+
+
+        <div class="container my-5 " th:switch="${tipo}">
+
+
+            <div th:case="'Costa'">
+                <div>
+                    <h1 class="display-4 text-center">Rutas costeras</h1>
+                    <hr>
+                </div>
+                <div class="fondo row align-items-center  mt-5">
+                    <div class="col-12 col-lg-2 text-center my-4 mb-md-0">
+                        <img th:src="@{/img/osoplayaandando.png}" alt="Oso Costa" class="img-fluid custom-img ">
+                    </div>
+
+                    <div class="col-12 col-lg-10 text-center text-lg-start ">
+
+                        <h4 class="display-6  fw-bold mb-4 ">Explora la magia del litoral europeo</h4>
+                        <p class="lead mt-3">
+                            Europa cuenta con algunas de las costas más bellas del mundo. Desde los acantilados
+                            salvajes de
+                            Irlanda hasta las playas doradas del Mediterráneo, las rutas costeras europeas ofrecen
+                            paisajes
+                            inolvidables y una conexión única con la naturaleza.
+                        </p>
+                        <p class="lead mt-3">Cada paso a lo largo del litoral europeo revela pueblos pesqueros con
+                            encanto,
+                            calas escondidas y fortalezas históricas asomadas al mar. Estas rutas no solo invitan al
+                            disfrute
+                            visual, sino también a conocer la historia marítima de cada región.</p>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div th:case="'Naturaleza'">
+                <div>
+                    <h1 class="display-4 text-center">Rutas por la naturaleza</h1>
+                    <hr>
+                </div>
+                <div class="fondo row align-items-center  mt-5">
+
+                    <div class="col-12 col-lg-2 text-center my-4 mb-md-0">
+                        <img th:src="@{/img/osomontaña.png}" alt="Oso Costa" class="img-fluid custom-img ">
+                    </div>
+                    <div class="col-12 col-lg-10 text-center text-lg-start ">
+
+                        <h4 class="display-6  fw-bold mb-4 ">Adéntrate en los paisajes más verdes de Europa</h4>
+                        <p class="lead mt-3">
+                            Las rutas naturales de Europa atraviesan bosques milenarios, parques nacionales y
+                            cordilleras majestuosas. Desde los senderos del Tirol austríaco hasta los valles verdes
+                            de los Pirineos, cada ruta es una invitación a desconectar del mundo moderno y
+                            reconectar con la tierra.
+                        </p>
+                        <p class="lead mt-3">Estos caminos serpentean entre lagos cristalinos, cascadas ocultas y
+                            prados salpicados de flores silvestres. Son hábitat de una rica fauna europea: ciervos,
+                            aves rapaces, zorros y muchas especies únicas que conviven en armonía con la vegetación
+                            autóctona.</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div th:case="'Cultural'">
+                <div>
+                    <h1 class="display-4 text-center">Rutas culturales</h1>
+                    <hr>
+                </div>
+                <div class="fondo row align-items-center  mt-5">
+                    <div class="col-12 col-lg-2 text-center my-4 mb-md-0">
+                        <img th:src="@{/img/osociudad.png}" alt="Oso ciudad" class="img-fluid custom-img ">
+                    </div>
+
+                    <div class="col-12 col-lg-10 text-center text-lg-start ">
+
+                        <h4 class="display-6  fw-bold mb-4 ">Un viaje por la historia viva de Europa</h4>
+                        <p class="lead mt-3">
+                            Las rutas culturales permiten recorrer siglos de historia a través de ciudades
+                            amuralladas, monumentos icónicos, iglesias medievales y caminos que una vez pisaron
+                            comerciantes, artistas y peregrinos. Desde la Ruta Romana en Alemania hasta el Camino de
+                            Santiago en España, cada trayecto cuenta una historia diferente.
+                        </p>
+                        <p class="lead mt-3">Europa es un mosaico de culturas. Estas rutas conectan al viajero con
+                            la arquitectura local, las fiestas tradicionales, los oficios antiguos y la gastronomía
+                            regional. Son ideales para quienes desean no solo ver, sino entender la identidad de
+                            cada lugar.</p>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+
+        <div class="row justify-content-center mt-5">
+
+            <div class="col-12 col-md-6 col-lg-4 mb-5" th:each="ruta : ${rutas}">
+
+                <div class="card ruta h-100 w-100 d-flex flex-column">
+                    <img class="card-img-top img-aleatorio"
+                         th:src="${ruta.Foto1 != null && !#strings.isEmpty(ruta.Foto1) ? ruta.Foto1 : 'https://abelia.rw/vendor/Product_Image/no_image.png'}"
+                         alt="Imagen de ${ruta.nombre}" />
+                    <div class="card-body">
+                        <span class="badge bg-primary mb-2" th:text="${ruta.nombrePais}"></span>
+                        <h4 class="card-title" th:text="${ruta.nombre}"></h4>
+                        <form th:action="@{/favoritos/eliminar}" method="post">
+                            <input type="hidden" name="idRuta" th:value="${ruta.id}" />
+                            <input type="hidden" name="redirectUrl" th:value="${currentUrl}">
+                            <p class="card-text text-warning">
+                                    <span th:with="media=${puntuacionesMedias[ruta.id]}">
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=1} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=2} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=3} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=4} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=5} ? 'text-warning' : 'text-muted'"></i>
+                                        <span th:text="|(${#numbers.formatDecimal(media, 1,1)})|"></span>
+                                    </span>
+                            </p>
+                            <button type="submit" style="background: none; border: none;">
+                                    <span th:if="${idsFavoritos != null and idsFavoritos.contains(ruta.id)}">
+                                        ❤️
+                                    </span>
+                                <span th:unless="${idsFavoritos != null and idsFavoritos.contains(ruta.id)}"
+                                      class="color-black">
+                                        ♡no favsss
+                                    </span>
+                            </button>
+                        </form>
+                        <a th:href="@{/rutas/{id}(id=${ruta.id})}" class="btn-1">Ver más</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <nav aria-label="Paginacion de rutas" class="mt-3 mb-3">
+                <ul class="pagination justify-content-center align-items-center">
+                    <li class="page-item" th:if="${currentPage > 0}">
+                        <a class="page-link rounded-2"
+                           th:href="@{/rutas/tipo/{tipo}(tipo=${tipo}, page=${currentPage - 1}, size=${size})}">
+                            <span aria-hidden="true">&laquo;</span><span
+                                class="d-none d-md-inline ms-1">Anterior</span> </a>
+                    </li>
+                    <li class="page-item disabled mx-2">
+                            <span class="page-link bg-light text-dark border-0">Página <span
+                                    th:text="${currentPage + 1}"></span> de <span th:text="${totalPages}"></span></span>
+                    </li>
+                    <li class="page-item" th:if="${currentPage < totalPages - 1}">
+                        <a class="page-link rounded-2"
+                           th:href="@{/rutas/tipo/{tipo}(tipo=${tipo}, page=${currentPage + 1}, size=${size})}"><span
+                                class="d-none d-md-inline ms-1">Siguiente <span
+                                aria-hidden="true">&raquo;</span></span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </section>
+</main>
+
+
+
+<footer class=" container-fluid text-center text-white p-4">
+    <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
+    <p>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/paises/pais}">Paises</a>
+        <a th:href="@{/rutas/aleatorias}">Aleatorio</a>
+
+    </p>
+    <p>Proyecto DAW realizado por Elena Diaz Pérez</p>
+</footer>
+<!-- Bootstrap JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+<script>
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
+</body>
+
+</html>

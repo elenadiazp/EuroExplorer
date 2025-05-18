@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>EuroExplorer</title>
+    <link rel="icon" type="image/png" href="/img/osohola.png">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-md ">
+        <div class="container ">
+            <a class="navbar-brand " th:href="@{/}">
+                <img th:src="@{/img/logoblanco.png}" class="img-fluid" width="200px">
+            </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  align-items-center" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/}" aria-current="page">Inicio
+                            <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/paises/pais}">Paises</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/rutas/aleatorias}">Aleatrio</a>
+                    </li>
+                </ul>
+                <div sec:authorize="!isAuthenticated()">
+                    <a class="btn-1 " th:href="@{/login}">Iniciar sesión</a>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="dropdown menu-desplegable">
+                    <a href="#" class="btn-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i> Usuario
+                    </a>
+
+
+                        <div class="dropdown-menu dropdown-menu-md-end text-start" aria-labelledby="dropdownId">
+                            <a class="dropdown-item" th:href="@{/favoritos}">❤️ Favoritos</a>
+                            <a class="dropdown-item" th:href="@{/faq}">❓ Preguntas frecuentes</a>
+                            <hr class="dropdown-divider">
+                            <form th:action="@{/logout}" method="post" class="text-center">
+                                <button class="dropdown-item" th:href="@{/logout}">Cerrar sesión</button>
+                            </form>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+
+<main>
+    <main class="">
+        <section class="container mt-5">
+            <div class="row justify-content-center">
+                <h1 class="text-center mb-5 display-3">Preguntas Frecuentes</h1>
+                <div class=" mb-5 col-md-10 p-5 fondo rounded">
+                    <div class="accordion " id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapseOne">
+                                    🔎 ¿Qué es EuroExplorer?
+
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>
+                                        EuroExplorer es una aplicación web para explorar rutas turísticas por Europa.
+                                        Puedes descubrir rutas por tipo (costa, naturaleza o cultura), ver información
+                                        detallada de países y añadir rutas a tu lista de favoritos. El proyecto ha sido
+                                        desarrollado como parte del módulo final del ciclo formativo de Desarrollo de
+                                        Aplicaciones Web (DAW).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse2 " aria-expanded="true" aria-controls="collapseOne">
+                                    🌍 ¿Qué tipos de rutas puedo ver?
+
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>Las rutas están clasificadas en tres tipos:
+                                    <ul>
+                                        <li>Costa 🏖️</li>
+                                        </li>
+                                        <li> Naturaleza 🌲</li>
+                                        <li>Cultural 🏰</li>
+                                    </ul>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapseOne">
+                                    🗺️ ¿Cómo funciona la sección de países?
+
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>En la sección de países encontrarás tarjetas con información básica de cada país
+                                        europeo. Puedes buscar por nombre usando el buscador. Al hacer clic en un país,
+                                        accedes a su información detallada y a las rutas disponibles en él.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion"  id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapseOne">
+                                    🎯 ¿Puedo filtrar las rutas dentro de un país?
+
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>Sí. Una vez dentro de un país, puedes filtrar las rutas tanto por tipo como por
+                                        región de forma combinada.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapseOne">
+                                    ❤️ ¿Cómo funcionan los favoritos?
+
+
+                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>Si estás registrado y has iniciado sesión, puedes añadir rutas a tu lista de
+                                        favoritos y también quitarlas cuando quieras. Esta lista se guarda en tu perfil.
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion " id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapseOne">
+                                    ⭐ ¿Cómo funciona la puntuación de rutas?
+
+
+                                </button>
+                            </h2>
+                            <div id="collapse6" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>Cada ruta puede ser valorada de 1 a 5 estrellas. Si no se ha valorado aún, su
+                                        puntuación es 0. Solo los usuarios registrados pueden puntuar rutas.
+
+
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion " id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapseOne">
+                                    👤 ¿Necesito registrarme para usar la web?
+
+
+                                </button>
+                            </h2>
+                            <div id="collapse7" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>No necesitas registrarte para navegar y consultar rutas o países. Sin embargo,
+                                        necesitas iniciar sesión para:
+                                    <ul>
+                                        <li> Añadir rutas a favoritos.</li>
+                                        <li> Puntuar rutas.</li>
+                                    </ul>
+
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion " id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapseOne">
+                                    🧪 ¿Con qué tecnologías ha sido desarrollado?
+
+
+                                </button>
+                            </h2>
+                            <div id="collapse8" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>EuroExplorer está desarrollado con:
+                                    <ul>
+
+                                        <li><span class="fw-bold">Spring Boot</span> – para la lógica de backend,
+                                            controladores y seguridad.</li>
+                                        <li><span class="fw-bold">Thymeleaf</span> – como motor de plantillas para
+                                            renderizar el HTML desde el
+                                            servidor.</li>
+                                        <li><span class="fw-bold">Bootstrap</span> – para el diseño responsive y visual
+                                            moderno.</li>
+                                        <li><span class="fw-bold">Java</span> – como lenguaje principal del backend.
+                                        </li>
+                                        <li><span class="fw-bold">HTML, CSS y JavaScript</span> – para la estructura,
+                                            estilos y comportamiento de la
+                                            interfaz.</li>
+                                        <li><span class="fw-bold">Oracle Database</span> – la base de datos del
+                                            proyecto, diseñada y
+                                            rellena manualmente para gestionar usuarios, rutas,
+                                            puntuaciones, países, etc.</li>
+                                    </ul>
+
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="accordion " id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapseOne">
+                                    🎲 ¿Qué hace la página "Aleatorio"?
+
+                                </button>
+                            </h2>
+                            <div id="collapse9" class="accordion-collapse collapse " aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <p>La página aleatorio te muestra 3 rutas distintas por cada tipo (costa,
+                                        naturaleza y cultural). Cada vez que lo pulsas, se actualizan aleatoriamente,
+                                        ofreciéndote nuevas opciones para descubrir rutas inesperadas en Europa. Es
+                                        ideal si no sabes por dónde empezar o quieres dejarte sorprender.
+
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+</main>
+
+
+
+<footer class=" container-fluid text-center text-white p-4">
+    <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
+    <p>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/paises/pais}">Paises</a>
+        <a th:href="@{/rutas/aleatorias}">Aleatorio</a>
+
+    </p>
+    <p>Proyecto DAW realizado por Elena Diaz Pérez</p>
+</footer>
+<!-- Bootstrap JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

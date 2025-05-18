@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>EuroExplorer</title>
+    <link rel="icon" type="image/png" href="/img/osohola.png">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-md ">
+        <div class="container ">
+            <a class="navbar-brand " th:href="@{/}"><img th:src="@{/img/logoblanco.png}" class="img-fluid"
+                                                         width="200px"> </a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  align-items-center" id="collapsibleNavId">
+                <ul class="navbar-nav me-auto mt-2 mt-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/}" aria-current="page">Inicio
+                            <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/paises/pais}">Paises</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " th:href="@{/rutas/aleatorias}">Aleatrio</a>
+                    </li>
+                </ul>
+                <div sec:authorize="!isAuthenticated()">
+                    <a class="btn-1 " th:href="@{/login}">Iniciar sesión</a>
+                </div>
+                <div sec:authorize="isAuthenticated()" class="dropdown menu-desplegable">
+                    <a href="#" class="btn-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class=" fas fa-user-circle fa-lg"></i> Usuario
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end lista-menu">
+                        <li><a class="dropdown-item" th:href="@{/favoritos}">❤️ Favoritos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/faq}">❓ Preguntas frecuentes</a></li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <a class="btn-1 " th:href="@{/logout}">Cerrar sesión</a>
+                            </form>
+                        </li>
+                    </ul>
+
+
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+</header>
+<main>
+    <section class="container mt-5 ">
+        <div class="text-center mb-5">
+            <h1 class="display-4" th:text="${ruta.nombre}"></h1>
+            <form th:action="@{/favoritos/eliminar}" method="post">
+                <input type="hidden" name="idRuta" th:value="${ruta.id}" />
+                <input type="hidden" name="redirectUrl" th:value="${currentUrl}">
+                <p class="card-text text-warning">
+                        <span th:with="media=${puntuacionMedia}">
+                            <i class="fa fa-star" th:classappend="${media >=1} ? 'text-warning' : 'text-muted'"></i>
+                            <i class="fa fa-star" th:classappend="${media >=2} ? 'text-warning' : 'text-muted'"></i>
+                            <i class="fa fa-star" th:classappend="${media >=3} ? 'text-warning' : 'text-muted'"></i>
+                            <i class="fa fa-star" th:classappend="${media >=4} ? 'text-warning' : 'text-muted'"></i>
+                            <i class="fa fa-star" th:classappend="${media >=5} ? 'text-warning' : 'text-muted'"></i>
+                            <span th:text="${puntuacionMedia}"></span>
+
+                        </span>
+                </p>
+                <button type="submit" style="background: none; border: none;">
+                        <span th:if="${esFavorito}">
+                            ❤️
+                        </span>
+                    <span th:unless="${esFavorito}" class="color-black">
+                            ♡no favsss
+                        </span>
+                </button>
+            </form>
+        </div>
+        <div class="rounded p-4 shadow-sm fondo">
+            <div class="mb-3">
+                <p class="fw-bold mb-1">Intinerario</p>
+                <p th:text="${ruta.intinerario}"></p>
+            </div>
+            <div class="mb-3 ">
+                <p class="fw-bold mb-1">Dirección</p>
+                <p th:text="${ruta.direccion}"></p>
+            </div>
+            <div class="mb-3">
+                <p class="fw-bold mb-1">Otros datos</p>
+                <p th:text="${ruta.otrosDatos}"></p>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center mt-5 mb-5 g-4">
+            <div class="col-md-6 d-flex justify-content-center">
+                <img class="img-fluid img-detalle rounded" th:src="@{${ruta.foto1}}"
+                     alt="Imagen de ${ruta.nombre}" />
+            </div>
+            <div class="col-md-6 d-flex justify-content-center">
+                <img class="img-fluid img-detalle rounded" th:src="@{${ruta.foto2}}"
+                     alt="Imagen de ${ruta.nombre}" />
+            </div>
+
+        </div>
+    </section>
+    <section class="container">
+        <h1 class="display-3">
+            Puntua la ruta
+        </h1>
+        <form th:action="@{'/rutas/' + ${ruta.id} + '/puntuar'}" method="post" id="formPuntuacion">
+            <div class="estrellas" onchange="document.getElementById('formPuntuacion').submit()">
+                <input type="radio" id="star5" name="estrellas" value="5"
+                       th:checked="${puntuacionUsuario != null and puntuacionUsuario.puntuacion == 5}" />
+                <label for="star5" title="5 estrellas">★</label>
+
+                <input type="radio" id="star4" name="estrellas" value="4"
+                       th:checked="${puntuacionUsuario != null and puntuacionUsuario.puntuacion == 4}" />
+                <label for="star4" title="4 estrellas">★</label>
+
+                <input type="radio" id="star3" name="estrellas" value="3"
+                       th:checked="${puntuacionUsuario != null and puntuacionUsuario.puntuacion == 3}" />
+                <label for="star3" title="3 estrellas">★</label>
+
+                <input type="radio" id="star2" name="estrellas" value="2"
+                       th:checked="${puntuacionUsuario != null and puntuacionUsuario.puntuacion == 2}" />
+                <label for="star2" title="2 estrellas">★</label>
+
+                <input type="radio" id="star1" name="estrellas" value="1"
+                       th:checked="${puntuacionUsuario != null and puntuacionUsuario.puntuacion == 1}" />
+                <label for="star1" title="1 estrella">★</label>
+            </div>
+
+        </form>
+
+    </section>
+</main>
+
+<footer class=" container-fluid text-center text-white p-4">
+    <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
+    <p>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/paises/pais}">Paises</a>
+        <a th:href="@{/rutas/aleatorias}">Aleatorio</a>
+
+    </p>
+    <p>Proyecto DAW realizado por Elena Diaz Pérez</p>
+</footer>
+<!-- Bootstrap JavaScript Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+<script>
+    window.addEventListener('pageshow', function (event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
+</body>
+
+</html>
