@@ -75,16 +75,17 @@
 
 <main>
     <div class="container justify-content-center my-5 d-flex ">
-        <div class="  shadow rounded p-4 w-100" style="max-width: 800px;">
+        <div class="  shadow fondo rounded p-4 w-100" style="max-width: 800px;">
             <h2 class="display-3 mb-3 text-center">
-                Registro de usuario
+                Registro de usuario <img src="/img/osoregistrarse.png" class="img-fluid" width="100px">
             </h2>
-
+            <a th:href="@{/login}">
         <div th:if="${param.success}" class="alert alert-success" role="alert">
-            Registro exitoso. ¡Puedes inciar sesión ahora!
+            Registro exitoso. ¡Puedes inciar sesión ahora pulsando aqui!
         </div>
+            </a>
         <div th:if="${param.error}" class="alert alert-danger" role="alert">
-            Error en el registro. Por favor, revissa los datos ingresados.
+            Error en el registro. Por favor, revisa los datos ingresados.
         </div>
         <form class=" " th:action="@{/registrar}" th:object="${usuario}" method="post">
             <div class=" mb-3 ">

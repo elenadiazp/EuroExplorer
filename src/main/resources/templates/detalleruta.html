@@ -170,11 +170,112 @@
         </div>
 
     </section>
+    <section class="my-5 container justify-content-center">
+        <h2 class="display-5">Tu comentario</h2>
 
+        <!-- si usuario autenticado -->
+        <div th:if="${usuarioAutenticado != null}">
+
+            <div th:if="${mensaje != null}" class="alert alert-success">
+              <p th:text="${mensaje}"></p>
+         </div>
+            <!-- si ya ha comentado -->
+
+            <div th:if="${comentarioUsuario != null}">
+                <p><strong>Fecha:</strong>
+                  <span th:text="${#temporals.format(comentarioUsuario.fecha, 'dd/MM/yyyy HH:mm')}">
+                </span></p>
+             <p th:text="${comentarioUsuario.comentario}"></p>
+
+                <form th:action="@{/rutas/{id}/comentario/eliminar(id=${ruta.id})}" method="post" >
+                  <button class="btn btn-danger mb-4" type="submit" onclick="return confirm('Seguro que quieres eliminar tu comentario')">
+                        Eliminar comentario
+                    </button>
+             </form>
+                <!-- editar comentario -->
+            <form th:action="@{/rutas/{id}/comentar(id=${ruta.id})}" method="post">
+                <textarea name="comentarioTexto" rows="4" cols="50"
+                          th:text="${comentarioUsuario != null } ? ${comentarioUsuario.comentario} : ''"
+                          placeholder="Escribe tu comentario aqui..." required minlength="5"></textarea>
+                <br/>
+                <button class=" btn btn-1" type="submit" >
+                     Editar comentario
+                </button>
+
+
+              </form>
+            </div>
+
+
+
+        <!-- si no ha comentado -->
+        <div th:if="${comentarioUsuario == null}">
+            <p >No has comentado esta ruta aún.</p>
+            <form th:action="@{/rutas/{id}/comentar(id=${ruta.id})}" method="post">
+                <textarea name="comentarioTexto" rows="4" cols="50" required minlength="5" placeholder="Escribe tu comentario aqui..."></textarea>
+                <br/>
+                <button class=" btn btn-1" type="submit" >
+                   Añadir comentario
+                </button>
+            </form>
+        </div>
+        </div>
+        <!-- no autenticado -->
+        <div th:unless="${usuarioAutenticado != null}" class=" mt-3 alert alert-info">
+            <p>Para comentar, debes <a th:href="@{/login}">iniciar sesión</a></p>
+        </div>
+    </section>
+
+    <!--comentarios otros users-->
+<section class="container">
+    <h2 class="display-5">Comentarios de otros usuarios</h2>
+    <div th:if="${#lists.isEmpty(paginaComentarios.content)}">
+        <p >Aún no hay comentarios.</p>
+    </div>
+    <div th:each="comentario : ${paginaComentarios.content}">
+        <p><strong th:text="${comentario.idUsuario.nombre}">Usuario</strong> dice:</p>
+        <p th:text="${comentario.comentario}">Comentario</p>
+        <p><strong>Fecha:</strong>
+            <span th:text="${#temporals.format(comentario.fecha, 'dd/MM/yyyy HH:mm')}">
+
+            </span></p>
+        <hr>
+    </div>
+
+
+
+    <nav aria-label="Paginacion de comentarios" class="mt-3 mb-3" th:if="${paginaComentarios.totalPages > 1}">
+        <ul class="pagination justify-content-center align-items-center">
+
+
+            <li class="page-item" th:classappend="${paginaComentarios.first} ? 'disabled': ''">
+                <a class="page-link rounded-2"
+                   th:href="@{/rutas/{id}(id=${ruta.id}, pagina=${paginaComentarios.number - 1}, tamanio=${paginaComentarios.size})}"
+                   th:attr="aria-disabled=${paginaComentarios.first}">
+                    <span aria-hidden="true">&laquo;</span><span
+                        class="d-none d-md-inline ms-1">Anterior</span> </a>
+            </li>
+
+            <li class="page-item disabled mx-2"  >
+                            <span class="page-link bg-light text-dark border-0">Página <span
+                                    th:text="${paginaComentarios.number + 1}"></span> de <span th:text="${paginaComentarios.totalPages}"></span></span>
+            </li>
+            <li class="page-item " th:classappend="${paginaComentarios.last} ? 'disabled' : ''">
+                <a class="page-link rounded-2"
+                   th:href="@{/rutas/{id}(id=${ruta.id}, pagina=${paginaComentarios.number + 1}, tamanio=${paginaComentarios.size})}"
+                   th:attr="aria-disabled=${paginaComentarios.last}">Siguiente
+                            </span><span aria-hidden="true">&raquo;</span></a>
+            </li>
+        </ul>
+    </nav>
+
+</section>
 
 </main>
 
 <footer class=" container-fluid text-center text-white p-4">
+
+    <a href="#top" class="btn  position-fixed bottom-0 end-0 m-4 rounded-circle btn-flecha "><i class="fas fa-chevron-up"></i></a>
     <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
     <p>
         <a th:href="@{/}">Inicio</a>

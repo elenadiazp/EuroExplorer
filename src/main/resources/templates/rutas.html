@@ -23,7 +23,9 @@
 
 </head>
 
-<body><header>
+<body>
+<header>
+    <a id="top"></a>
     <nav class="navbar navbar-expand-md ">
         <div class="container ">
             <a class="navbar-brand " th:href="@{/}">
@@ -252,6 +254,8 @@
 
 
 <footer class=" container-fluid text-center text-white p-4">
+
+    <a href="#top" class="btn  position-fixed bottom-0 end-0 m-4 rounded-circle btn-flecha "><i class="fas fa-chevron-up"></i></a>
     <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
     <p>
         <a th:href="@{/}">Inicio</a>

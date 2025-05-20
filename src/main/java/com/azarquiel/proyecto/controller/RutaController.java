@@ -2,10 +2,7 @@ package com.azarquiel.proyecto.controller;
 
 import com.azarquiel.proyecto.dto.PaisDto;
 import com.azarquiel.proyecto.dto.RutaDto;
-import com.azarquiel.proyecto.entidades.Puntuacion;
-import com.azarquiel.proyecto.entidades.Region;
-import com.azarquiel.proyecto.entidades.Ruta;
-import com.azarquiel.proyecto.entidades.Usuario;
+import com.azarquiel.proyecto.entidades.*;
 import com.azarquiel.proyecto.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Page;
@@ -33,14 +30,16 @@ public class RutaController {
     private UsuarioService usuarioService;
     private FavoritoService favoritoService;
     private PuntuacionService puntuacionService;
+    private ComentarioService comentarioService;
 
     @Autowired
-    public RutaController(RutaService rutaService, PaisService paisService, UsuarioService usuarioService, FavoritoService favoritoService, PuntuacionService puntuacionService) {
+    public RutaController(RutaService rutaService, PaisService paisService, UsuarioService usuarioService, FavoritoService favoritoService, PuntuacionService puntuacionService, ComentarioService comentarioService) {
         this.rutaService = rutaService;
         this.paisService = paisService;
         this.usuarioService = usuarioService;
         this.favoritoService = favoritoService;
         this.puntuacionService=puntuacionService;
+        this.comentarioService = comentarioService;
     }
     private void añadirFavoritosAlModel(Model model, Principal principal){
         if(principal !=null){
@@ -103,21 +102,36 @@ public class RutaController {
         return "rutas";
     }
     @GetMapping("/rutas/{id}")
-    public  String rutasPorRuta(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request){
+    public  String rutasPorRuta(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request, @RequestParam(defaultValue = "0") int pagina, @RequestParam(defaultValue = "4") int tamanio){
         RutaDto ruta =rutaService.findById(id);
         model.addAttribute("ruta", ruta);
 
         if(principal != null){
             String correo = principal.getName();
             Usuario usuario = usuarioService.buscarPorCorreo(correo).orElse(null);
+            model.addAttribute("usuarioAutenticado", usuario);
             if(usuario != null){
                 boolean esFavorito= favoritoService.esFavorito(id, usuario.getId());
                 model.addAttribute("esFavorito", esFavorito);
 
                 Optional<Puntuacion> puntuacionOptional= puntuacionService.buscarPorUsuarioYRuta(usuario.getId(), ruta.getId());
                 puntuacionOptional.ifPresent(p -> model.addAttribute("puntuacionUsuario", p));
-        }}
 
+                Comentario comentarioUsuario= comentarioService.findByUsuarioAndRuta(usuario,ruta);
+                model.addAttribute("comentarioUsuario", comentarioUsuario);
+
+
+            }}else{
+            model.addAttribute("usuarioAutenticado", null);
+        }
+
+        Page<Comentario> paginaComentarios = comentarioService.findComentarioByRuta(id, pagina, tamanio);
+        model.addAttribute("paginaComentarios", paginaComentarios);
+        model.addAttribute("todosComentarios", paginaComentarios.getContent());
+
+
+        List<Comentario>todosComentarios = comentarioService.findAllByRuta(ruta);
+        model.addAttribute("todosComentarios", todosComentarios);
 
         Double media = puntuacionService.calcularPuntuacionMedia(ruta.getId());
        model.addAttribute("puntuacionMedia", media != null ? media : 0.0);
@@ -127,6 +141,7 @@ public class RutaController {
             url += "?" + request.getQueryString();
         }
         model.addAttribute("currentUrl", url);
+
 
         return "detalleruta";
     }

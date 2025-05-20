@@ -32,4 +32,6 @@ public interface RutaRepository extends JpaRepository<Ruta, Integer> {
     Page<Ruta> findTopRutasByPuntuacionMedia(Pageable pageable);
 
 
+
+
 }

@@ -22,6 +22,7 @@
 
 <body>
 <header>
+    <a id="top"></a>
     <nav class="navbar navbar-expand-md ">
         <div class="container ">
             <a class="navbar-brand " th:href="@{/}">
@@ -110,22 +111,22 @@
 
 
     <section class="mt-5 mb-5">
-        <div class="container text-center mt-5 mb-5">
+        <div class="container  mt-5 mb-5">
 
-            <h2 class="mb-4 display-5">Las rutas mejor valoradas</h2>
+            <h2 class="mb-4 display-5 text-center">Las rutas mejor valoradas</h2>
         </div>
         <div class="container-fluid fondo">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-12 col-sm-6 col-lg-4  mb-5" th:each="ruta : ${mejoresRutas} ">
 
-                        <div class="card ruta h-100 w-100 d-flex flex-column text-start">
+                        <div class="card ruta h-100  d-flex flex-column text-start">
                             <img class="card-img-top img-aleatorio"
                                  th:src="${ruta.Foto1 != null && !#strings.isEmpty(ruta.Foto1) ? ruta.Foto1 : 'https://abelia.rw/vendor/Product_Image/no_image.png'}"
                                  alt="Imagen de ${ruta.nombre}" />
-                            <div class="card-body">
+                            <div class="card-body d-flex flex-column h-100">
                                 <h4 class="card-title" th:text="${ruta.nombre}"></h4>
-                                <span class="badge bg-primary mb-2" th:text="${ruta.idregion.nombre}"></span>
+                                <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.nombre}"></span>
                                 <p class="card-text text-warning">
                                         <span th:with="media=${puntuacionesMedias[ruta.id]}">
                                             <i class="fa fa-star"
@@ -141,26 +142,33 @@
                                             <span th:text="|(${#numbers.formatDecimal(media, 1,1)})|"></span>
                                         </span>
                                 </p>
+                                <div class="mt-auto d-flex justify-content-between align-items-center ">
+                                    <div class="col-6">
+                                        <a th:href="@{/rutas/{id}(id=${ruta.id})}" class="btn-1">Ver más</a>
+                                    </div>
 
-
+                                <div class="col-6 text-end botton-0">
                                 <form th:action="@{/favoritos/eliminar}" method="post">
                                     <input type="hidden" name="idRuta" th:value="${ruta.id}" />
                                     <input type="hidden" name="redirectUrl" th:value="${currentUrl}">
                                     <button type="submit" style="background: none; border: none;">
-                                            <span th:if="${idsFavoritos != null and idsFavoritos.contains(ruta.id)}">
-                                                ❤️
+                                            <span th:if="${favoritos[ruta.id]}">
+                                                  <i class="fas fa-heart text-danger fa-2x"></i>
                                             </span>
-                                        <span th:unless="${idsFavoritos != null and idsFavoritos.contains(ruta.id)}"
+                                        <span th:unless="${favoritos[ruta.id]}"
                                               class="color-black">
-                                                ♡no favsss
+                                               <i class="far fa-heart fa-2x "></i>
                                             </span>
                                     </button>
                                 </form>
-
-                                <a th:href="@{/rutas/{id}(id=${ruta.id})}" class="btn-1">Ver más</a>
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section
@@ -212,7 +220,7 @@
 </main>
 
 
-
+<a href="#top" class="btn  position-fixed bottom-0 end-0 m-4 rounded-circle btn-flecha "><i class="fas fa-chevron-up"></i></a>
 <footer class=" container-fluid text-center text-white p-4">
     <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
     <p>

@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "COMENTARIO")
@@ -28,9 +29,13 @@ public class Comentario {
     @Column(name = "COMENTARIO", length = 1000)
     private String comentario;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "FECHA")
-    private Instant fecha;
+    @Column(name = "FECHA", nullable = false)
+    private LocalDateTime fecha;
+
+    @PrePersist
+    protected void onCreate() {
+        this.fecha = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -64,11 +69,11 @@ public class Comentario {
         this.comentario = comentario;
     }
 
-    public Instant getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(Instant fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 

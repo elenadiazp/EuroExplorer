@@ -23,6 +23,7 @@
 
 <body>
 <header>
+    <a id="top"></a>
     <nav class="navbar navbar-expand-md ">
         <div class="container ">
             <a class="navbar-brand " th:href="@{/}">
@@ -98,7 +99,21 @@
                             <h4 class="card-title" th:text="${ruta.nombre}"></h4>
                             <span class="badge bg-primary mb-2"
                                   th:text="${ruta.idregion.getIdPais().nombre}" style="max-width: fit-content;"></span>
-
+                            <p class="card-text text-warning">
+                                    <span th:with="media=${puntuacionesMedias[ruta.id]}">
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=1} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=2} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=3} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=4} ? 'text-warning' : 'text-muted'"></i>
+                                        <i class="fa fa-star"
+                                           th:classappend="${media >=5} ? 'text-warning' : 'text-muted'"></i>
+                                        <span th:text="|(${#numbers.formatDecimal(media, 1,1)})|"></span>
+                                    </span>
+                            </p>
                             <div class="mt-auto d-flex justify-content-between align-items-center ">
                                 <div class="col-6"> <a th:href="@{/rutas/{id}(id=${ruta.id})}" class="btn-1">Ver más</a></div>
 
@@ -128,7 +143,9 @@
 
 
 <footer class=" container-fluid text-center text-white p-4">
-    <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
+
+
+    <a href="#top" class="btn  position-fixed bottom-0 end-0 m-4 rounded-circle btn-flecha "><i class="fas fa-chevron-up"></i></a><p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
     <p>
         <a th:href="@{/}">Inicio</a>
         <a th:href="@{/paises/pais}">Paises</a>

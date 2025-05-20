@@ -77,7 +77,7 @@
 <main>
 
     <div class="container  my-5 d-flex justify-content-center">
-        <div class=" shadow  rounded p-4 w-100 " style="max-width: 500px;">
+        <div class=" shadow fondo rounded p-4 w-100 " style="max-width: 500px;">
             <div class="text-center ">
             <h2 class="display-3 mb-3">
                 Iniciar sesión
@@ -102,7 +102,7 @@
             <button type="submit" class="btn btn-1 border-0 w-100" data-bs-dismiss="modal">
                 Iniciar Sesión
             </button>
-            <p class="mt-3">¿Todavía no estas registrado? <a th:href="@{/registro}">Registrate aquí</a> </p>
+            <p class="mt-3">¿Todavía no estas registrado? <a th:href="@{/registro}" class="a-registrarse">Registrate aquí</a> </p>
 
         </form>
         <div th:if="${param.error}" class="alert alert-danger" role="alert">
@@ -137,78 +137,3 @@
 </body>
 
 </html>
-<div class="modal fade" id="iniciasesionId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
-        <div class="modal-content" style="background-color: #f6f9fb;">
-
-            <div class="modal-body ">
-                <div class=" row text-center">
-                    <h2 class="modal-title mb-3" id="modalTitleId">
-                        Iniciar sesión
-                    </h2>
-                </div>
-                <div class="container border rounded-3 bg-white pb-3 pt-3 ">
-                    <div class=" mb-3 ">
-                        <label for="" class="form-label">Correo electronico</label>
-                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" />
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="" class="form-label">Contraseña</label>
-                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" />
-                    </div>
-
-                    <button type="button"  class="btn btn-1 border-0 w-100" data-bs-dismiss="modal">
-                        Entrar
-                    </button>
-                    <p>¿Todavía no estas registrado? <a href="" data-bs-toggle="modal" data-bs-target="#registroId">Registrate aquí</a> </p>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
-
-
-
-<div class="modal fade" id="registroId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content" style="background-color: #f6f9fb;">
-
-            <div class="modal-body ">
-                <div class=" row text-center">
-                    <h2 class="modal-title mb-3" id="modalTitleId">
-                        Registro de usuario
-                    </h2>
-                </div>
-                <div class="container border rounded-3 bg-white pb-3 pt-3 ">
-                    <div class=" mb-3 ">
-                        <label for="" class="form-label">Nombre</label>
-                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" />
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="" class="form-label">Contraseña</label>
-                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="" class="form-label">Repite la contraseña</label>
-                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="" class="form-label">Correo electrónico</label>
-                        <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" />
-                    </div>
-
-                    <button type="button"  class="btn btn-1 border-0 w-100" data-bs-dismiss="modal">
-                        Entrar
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>

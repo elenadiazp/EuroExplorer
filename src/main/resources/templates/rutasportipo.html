@@ -20,7 +20,9 @@
 
 </head>
 
-<body><header>
+<body>
+<header>
+    <a id="top"></a>
     <nav class="navbar navbar-expand-md ">
         <div class="container ">
             <a class="navbar-brand " th:href="@{/}">
@@ -249,11 +251,11 @@
                             <span class="page-link bg-light text-dark border-0">Página <span
                                     th:text="${currentPage + 1}"></span> de <span th:text="${totalPages}"></span></span>
                     </li>
-                    <li class="page-item" th:if="${currentPage < totalPages - 1}">
+                    <li class="page-item " th:if="${currentPage < totalPages - 1}">
                         <a class="page-link rounded-2"
                            th:href="@{/rutas/tipo/{tipo}(tipo=${tipo}, page=${currentPage + 1}, size=${size})}"><span
-                                class="d-none d-md-inline ms-1">Siguiente <span
-                                aria-hidden="true">&raquo;</span></span></a>
+                                class="d-none d-md-inline ms-1">Siguiente
+                            </span><span aria-hidden="true">&raquo;</span></a>
                     </li>
                 </ul>
             </nav>
@@ -265,6 +267,8 @@
 
 
 <footer class=" container-fluid text-center text-white p-4">
+
+    <a href="#top" class="btn  position-fixed bottom-0 end-0 m-4 rounded-circle btn-flecha "><i class="fas fa-chevron-up"></i></a>
     <p>&copy; 2025 EuroExplorer. Todos los derechos reservados.</p>
     <p>
         <a th:href="@{/}">Inicio</a>
