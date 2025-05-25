@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>EuroExplorer</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <style>
+
+        body{
+            font-family: 'Arial', sans-serif;
+            margin: 40px;
+            background-color:#f9f9f9;
+        }
+        h1{
+            color: #5d8b55;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color:#f4aa29;
+            font-size: 22px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+            margin-top: 25px;
+        }
+        p{
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+        .section{
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius:  8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+
+        }
+        .comentario {
+            border: 1px solid #e0e0e0;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .foto{
+            width: 100%;
+           max-height: 300px;
+            border-radius: 10px;
+            margin-top: 10px;
+            object-fit: cover;
+        }
+        .logo{
+            width: 250px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
+        }
+
+        table{
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        td{
+            padding: 6px 10px;
+            vertical-align: top;
+        }
+    </style>
+
+</head>
+
+<body>
+<div style="text-align: center; margin-bottom: 30px">
+    <img th:src="${logoUrl}"  alt="Logo" class="logo"/>
+    <h1 th:text="${ruta.nombre}">Nombre ruta</h1>
+</div>
+
+
+<div class="section">
+    <h2>Intinerario</h2>
+    <p th:text="${ruta.intinerario}">Intinerario</p>
+</div>
+
+<div class="section">
+    <h2>Otros datos</h2>
+    <p th:text="${ruta.otrosDatos}">Otros datos</p>
+</div>
+<div class="section">
+    <h2>Dirección</h2>
+    <p th:text="${ruta.direccion}">Dirección</p>
+</div>
+
+<div class="section">
+    <h2>País</h2>
+    <p th:text="${pais.nombre}"><strong>Nombre país</strong></p>
+    <p th:text="${pais.info}">Info</p>
+</div>
+
+<div class="section">
+    <h2>Información Práctica</h2>
+    <div th:each="infoP : ${pais.infoPracticas}">
+        <table style="width: 100%; border-collapse: collapse">
+            <tbody>
+            <tr>
+                <th class="fw-bold">Idioma</th>
+                <td th:text="${infoP.idioma}"></td>
+            </tr>
+            <tr>
+                <th class="fw-bold">Zona Horaria</th>
+                <td th:text="${infoP.zonaHoraria}"></td>
+            </tr>
+            <tr>
+                <th class="fw-bold">Enchufe</th>
+                <td th:text="${infoP.enchufe}"></td>
+            </tr>
+            <tr>
+                <th class="fw-bold">Prefijo</th>
+                <td th:text="${infoP.prefijo}"></td>
+            </tr>
+            <tr>
+                <th class="fw-bold">Moneda</th>
+                <td th:text="${infoP.moneda}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<div class="section">
+    <h2>Imágenes</h2>
+    <p th:if="${ruta.foto1 == null && ruta.foto2 == null }">No hay imágenes disponibles</p>
+    <div style="display: flex; gap: 10px;">
+        <div style="flex: 1;" th:if="${ruta.foto1 != null}">
+            <img th:src="@{${ruta.foto1}}" alt="Foto 1" class="foto"/>
+        </div>
+        <div style="flex: 1;" th:if="${ruta.foto2 != null}">
+            <img th:src="@{${ruta.foto2}}" alt="Foto 2" class="foto"/>
+        </div>
+    </div>
+</div>
+
+
+<div class="section">
+    <h2>Comentarios</h2>
+
+    <div th:if="${ comentarios != null && !comentarios.isEmpty()}" th:each="comentario : ${comentarios}" class="comentario">
+        <strong th:text="${comentario.idUsuario.nombre}">Usuario</strong>
+
+        <p th:text="${comentario.comentario}">Texto</p>
+    </div>
+    <p th:if="${comentarios == null || comentarios.isEmpty()}">No hay comentarios disponibles</p>
+</div>
+<div style="text-align: center; font-size: 12px; color: #666; margin-top: 40px;">
+    Documento generado automáticamente por la aplicación EuroExplorer.<br/>
+    Trabajo de Fin de Grado - Desarrollo de Aplicaciones Web (DAW)<br/>
+    Elaborado por Elena Díaz Pérez
+</div>
+</body>
+
+</html>

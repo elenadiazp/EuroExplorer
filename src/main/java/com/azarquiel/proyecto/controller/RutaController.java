@@ -102,7 +102,7 @@ public class RutaController {
         return "rutas";
     }
     @GetMapping("/rutas/{id}")
-    public  String rutasPorRuta(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request, @RequestParam(defaultValue = "0") int pagina, @RequestParam(defaultValue = "4") int tamanio){
+    public  String rutasPorRuta(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request, @RequestParam(defaultValue = "0") int pagina, @RequestParam(defaultValue = "2") int tamanio){
         RutaDto ruta =rutaService.findById(id);
         model.addAttribute("ruta", ruta);
 

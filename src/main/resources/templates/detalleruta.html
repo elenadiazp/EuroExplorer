@@ -40,7 +40,7 @@
                         <a class="nav-link  " th:href="@{/paises/pais}">Paises</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link  " th:href="@{/rutas/aleatorias}">Aleatrio</a>
+                        <a class="nav-link  " th:href="@{/rutas/aleatorias}">Aleatorio</a>
                     </li>
                 </ul>
                 <div sec:authorize="!isAuthenticated()">
@@ -79,7 +79,7 @@
             <form th:action="@{/favoritos/eliminar}" method="post">
                 <input type="hidden" name="idRuta" th:value="${ruta.id}" />
                 <input type="hidden" name="redirectUrl" th:value="${currentUrl}">
-                <p class="card-text text-warning">
+                <p class="card-text text-warning mt-4">
                         <span th:with="media=${puntuacionMedia}">
                             <i class="fa fa-star fa-lg" th:classappend="${media >=1} ? 'text-warning' : 'text-muted'"></i>
                             <i class="fa fa-star fa-lg" th:classappend="${media >=2} ? 'text-warning' : 'text-muted'"></i>
@@ -115,7 +115,7 @@
             </div>
 
         </div>
-
+       <div class="mt-5 text-center"> <a th:href="@{'/rutas/' + ${ruta.id} + '/pdf'}" class="btn btn-filtrar" target="_blank">Descargar en PDF</a></div>
         <div class="row justify-content-center mt-5 mb-5 g-4">
             <div class="col-md-6 d-flex justify-content-center">
                 <img class="img-fluid img-detalle rounded" th:src="@{${ruta.foto1}}"
@@ -128,7 +128,7 @@
 
         </div>
     </section>
-    <section class="container my-5 ">
+    <section class="container my-5 pt-5 ">
         <div class="row align-items-center">
             <div class="col-12 col-lg-10 text-center text-lg-start">
 
@@ -161,7 +161,7 @@
 
                 </form>
             </div>
-            <div class="col-12 col-lg-2 text-center mb-4 mb-md-0">
+            <div class="col-12 col-lg-2 text-center my-4 mb-md-0">
                 <img th:src="@{/img/osoestrella.png}" alt="Oso estrella" class="img-fluid custom-img">
 
             </div>
@@ -170,8 +170,13 @@
         </div>
 
     </section>
-    <section class="my-5 container justify-content-center">
-        <h2 class="display-5">Tu comentario</h2>
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-start">
+
+
+    <section class="my-5  col-lg-6 col-12 ">
+
+        <h2 class="display-5 mb-4">Tu comentario</h2>
 
         <!-- si usuario autenticado -->
         <div th:if="${usuarioAutenticado != null}">
@@ -181,8 +186,9 @@
          </div>
             <!-- si ya ha comentado -->
 
-            <div th:if="${comentarioUsuario != null}">
-                <p><strong>Fecha:</strong>
+            <div th:if="${comentarioUsuario != null}" >
+
+                <p ><strong>Fecha:</strong>
                   <span th:text="${#temporals.format(comentarioUsuario.fecha, 'dd/MM/yyyy HH:mm')}">
                 </span></p>
              <p th:text="${comentarioUsuario.comentario}"></p>
@@ -194,7 +200,7 @@
              </form>
                 <!-- editar comentario -->
             <form th:action="@{/rutas/{id}/comentar(id=${ruta.id})}" method="post">
-                <textarea name="comentarioTexto" rows="4" cols="50"
+                <textarea class="p-2" name="comentarioTexto" rows="4" cols="50"
                           th:text="${comentarioUsuario != null } ? ${comentarioUsuario.comentario} : ''"
                           placeholder="Escribe tu comentario aqui..." required minlength="5"></textarea>
                 <br/>
@@ -212,7 +218,7 @@
         <div th:if="${comentarioUsuario == null}">
             <p >No has comentado esta ruta aún.</p>
             <form th:action="@{/rutas/{id}/comentar(id=${ruta.id})}" method="post">
-                <textarea name="comentarioTexto" rows="4" cols="50" required minlength="5" placeholder="Escribe tu comentario aqui..."></textarea>
+                <textarea class="p-2" name="comentarioTexto" rows="4" cols="50" required minlength="5" placeholder="Escribe tu comentario aqui..."></textarea>
                 <br/>
                 <button class=" btn btn-1" type="submit" >
                    Añadir comentario
@@ -221,18 +227,20 @@
         </div>
         </div>
         <!-- no autenticado -->
-        <div th:unless="${usuarioAutenticado != null}" class=" mt-3 alert alert-info">
-            <p>Para comentar, debes <a th:href="@{/login}">iniciar sesión</a></p>
+
+        <div th:unless="${usuarioAutenticado != null}" class=" mt-3 ">
+            <p class="lead">Para comentar, debes <a th:href="@{/login}" class="btn-1">iniciar sesión</a></p>
         </div>
     </section>
 
     <!--comentarios otros users-->
-<section class="container">
-    <h2 class="display-5">Comentarios de otros usuarios</h2>
+<section class="col-lg-6 col-12 mb-5 fondo rounded " >
+    <h2 class="display-5 mb-5 text-center">Comentarios de otros usuarios</h2>
     <div th:if="${#lists.isEmpty(paginaComentarios.content)}">
         <p >Aún no hay comentarios.</p>
     </div>
-    <div th:each="comentario : ${paginaComentarios.content}">
+    <div th:each="comentario : ${paginaComentarios.content}" class="bg-white m-2 rounded p-3 ">
+        <hr>
         <p><strong th:text="${comentario.idUsuario.nombre}">Usuario</strong> dice:</p>
         <p th:text="${comentario.comentario}">Comentario</p>
         <p><strong>Fecha:</strong>
@@ -270,6 +278,8 @@
     </nav>
 
 </section>
+        </div>
+    </div>
 
 </main>
 
