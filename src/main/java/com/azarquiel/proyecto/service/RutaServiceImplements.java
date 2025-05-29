@@ -52,7 +52,9 @@ public class RutaServiceImplements implements RutaService {
     public List<RutaDto> rutasAleatoriasPorTipo(String tipo) {
         List<Ruta> rutas= rutaRepository.findByIdtiporutaNombreIgnoreCase(tipo);
         Collections.shuffle(rutas);//para obtener orden aleatorio
-        return rutas.stream().limit(3).map(ruta -> new RutaDto(ruta.getId(), ruta.getIdtiporuta(), ruta.getIdregion(), ruta.getFoto1(),ruta.getNombre(),ruta.getIdregion().getIdPais().getNombre())).toList();
+        return rutas.stream().limit(3).map(ruta -> new RutaDto(ruta.getId(),
+                ruta.getIdtiporuta(), ruta.getIdregion(), ruta.getFoto1(),ruta.getNombre(),
+                ruta.getIdregion().getIdPais().getNombre())).toList();
     }
 
     @Override
@@ -65,7 +67,9 @@ public class RutaServiceImplements implements RutaService {
         Pageable top3 = PageRequest.of(0,3);
         Page<Ruta> rutasPage = rutaRepository.findTopRutasByPuntuacionMedia(top3);
 
-        return rutasPage.stream().map(ruta -> new RutaDto(ruta.getId(),ruta.getIdtiporuta(),ruta.getIdregion(),ruta.getFoto1(), ruta.getNombre(),ruta.getIdregion().getIdPais().getNombre())).toList();
+        return rutasPage.stream().map(ruta -> new RutaDto(ruta.getId(),ruta.getIdtiporuta(),
+                ruta.getIdregion(),ruta.getFoto1(), ruta.getNombre(),
+                ruta.getIdregion().getIdPais().getNombre())).toList();
     }
 
 

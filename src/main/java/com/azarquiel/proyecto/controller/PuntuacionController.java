@@ -27,18 +27,17 @@ public class PuntuacionController {
     private UsuarioRespository usuarioRespository;
 
 
-
     @PostMapping("/{idRuta}/puntuar")
-    public String puntuar (@PathVariable Long idRuta, @RequestParam int estrellas, Principal principal, RedirectAttributes redirectAttributes){
-       Optional<Usuario> usuarioOptional =  usuarioRespository.findByCorreoElectronico(principal.getName());
-        Ruta ruta= rutaRepository.findById(idRuta).orElseThrow(()-> new RuntimeException("Ruta no enontrada"));
+    public String puntuar(@PathVariable Long idRuta, @RequestParam int estrellas, Principal principal, RedirectAttributes redirectAttributes) {
+        Optional<Usuario> usuarioOptional = usuarioRespository.findByCorreoElectronico(principal.getName());
+        Ruta ruta = rutaRepository.findById(idRuta).orElseThrow(() -> new RuntimeException("Ruta no enontrada"));
 
-        if(!usuarioOptional.isPresent()) {
-        redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
-        return "redirect:/login";
+        if (!usuarioOptional.isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
+            return "redirect:/login";
         }
-        Usuario usuario= usuarioOptional.get();
-        if(ruta== null){
+        Usuario usuario = usuarioOptional.get();
+        if (ruta == null) {
             redirectAttributes.addFlashAttribute("error", "Ruta no encontrada");
             return "redirect:/rutas";
         }

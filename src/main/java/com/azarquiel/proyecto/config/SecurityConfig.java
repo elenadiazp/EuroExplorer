@@ -49,7 +49,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // NO declares manualmente el UserDetailsService si ya está como @Service
 
     @Bean
     public AuthenticationManager authenticationManager(

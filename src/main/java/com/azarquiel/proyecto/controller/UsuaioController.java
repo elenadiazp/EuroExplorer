@@ -37,11 +37,7 @@ public class UsuaioController {
     public String mostrarLogin() {
         return "login";
     }
-//
-//    @PostMapping("/login")
-//    public String procesarLogin(@RequestParam("correo")String correo, @RequestParam("contrasena")String contrasena, Model model) {
-//        return "redirect:/home";
-//    }
+
 
     @GetMapping("/logout")
     public String logout() {

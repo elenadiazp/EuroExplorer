@@ -102,7 +102,7 @@
         </div>
         <div class="rounded p-4 shadow-sm fondo">
             <div class="mb-3">
-                <p class="fw-bold mb-1">Intinerario</p>
+                <p class="fw-bold mb-1">Itinerario</p>
                 <p th:text="${ruta.intinerario}"></p>
             </div>
             <div class="mb-3 ">
@@ -183,7 +183,7 @@
 
             <div th:if="${mensaje != null}" class="alert alert-success">
               <p th:text="${mensaje}"></p>
-         </div>
+            </div>
             <!-- si ya ha comentado -->
 
             <div th:if="${comentarioUsuario != null}" >
@@ -218,7 +218,8 @@
         <div th:if="${comentarioUsuario == null}">
             <p >No has comentado esta ruta aún.</p>
             <form th:action="@{/rutas/{id}/comentar(id=${ruta.id})}" method="post">
-                <textarea class="p-2" name="comentarioTexto" rows="4" cols="50" required minlength="5" placeholder="Escribe tu comentario aqui..."></textarea>
+                <textarea class="p-2" name="comentarioTexto" rows="4" cols="50"
+                          required minlength="5" placeholder="Escribe tu comentario aqui..."></textarea>
                 <br/>
                 <button class=" btn btn-1" type="submit" >
                    Añadir comentario

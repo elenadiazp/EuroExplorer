@@ -25,11 +25,11 @@ public class UsuarioServiceImplements implements UsuarioService{
             throw new RuntimeException("El correo electronico ya existe");
         }
         System.out.println("antes cifrar" + usuario.getContrasena());
-       //usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
-String encode = passwordEncoder.encode(usuario.getContrasena());
+
+    String encode = passwordEncoder.encode(usuario.getContrasena());
 
         System.out.println("cifrado" + encode);
-usuario.setContrasena(encode);
+    usuario.setContrasena(encode);
         return usuarioRespository.save(usuario);
     }
 
