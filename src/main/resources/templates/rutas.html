@@ -82,7 +82,7 @@
 
 <main>
     <section class="container mt-3 ">
-
+        <!--información país-->
         <div class="row align-items-center mt-4 mb-5 fondo">
             <div class="col-12 col-lg-7 mb-4 mb-lg-0">
                 <h1 class="display-4" th:text="${pais.nombre}"></h1>
@@ -91,7 +91,7 @@
             <div class="col-12 col-lg-5 ">
                 <div class=" shadow-sm rounded-2 table-practica">
                     <div class=" ">
-                        <h5 class="text-center">Información practica</h5>
+                        <h5 class="text-center">Información práctica</h5>
                         <div th:if="${pais.infoPracticas != null}">
                             <div th:each="info: ${pais.infoPracticas}">
                                 <table class="table table-sm mb-0">
@@ -125,6 +125,7 @@
                 </div>
             </div>
         </div>
+        <!--rutas-->
         <section class="container my-5">
             <form method="get" th:action="@{/rutas/pais/{id}(id=${paisId})}">
                 <div class="row g-3 align-items-end">
@@ -163,7 +164,7 @@
                             </option>
                         </select>
                     </div>
-                    <!-- btn -->
+                    <!-- botón -->
                     <div class="col-12 d-flex justify-content-center gap-3 mt-3">
                         <button type="submit" class="btn btn-filtrar">Filtrar</button>
                         <a th:href="@{/rutas/pais/{id}(id=${paisId})}" class="btn btn-quitar">Quitar filtros</a>
@@ -263,7 +264,7 @@
         <a th:href="@{/rutas/aleatorias}">Aleatorio</a>
 
     </p>
-    <p>Proyecto DAW realizado por Elena Diaz Pérez</p>
+    <p>Proyecto DAW realizado por Elena Díaz Pérez</p>
 </footer>
 <!-- Bootstrap JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -14,9 +14,11 @@ import java.util.Optional;
 public interface RutaRepository extends JpaRepository<Ruta, Integer> {
     @Query("SELECT r FROM Ruta r WHERE r.idregion.idPais.id = :paisId")
     List<Ruta> findByPaisId(@Param("paisId") Long paisId);
+
     Optional<Ruta> findById(Long id);
     Page<Ruta> findByIdtiporutaNombreIgnoreCase(String nombre, Pageable pageable);//rutas por tipo paginacion
-    List<Ruta>findByIdtiporutaNombreIgnoreCase(String nombre); //rutas sin apginación
+    List<Ruta>findByIdtiporutaNombreIgnoreCase(String nombre); //rutas sin paginación
+
     @Query("SELECT r FROM Ruta r WHERE r.idregion.idPais.id = :paisId"
             + " AND (:tiposRutaIds IS NULL OR r.idtiporuta.id IN :tiposRutaIds)"
             + " AND (:regionIds IS NULL OR r.idregion.id IN :regionIds)")

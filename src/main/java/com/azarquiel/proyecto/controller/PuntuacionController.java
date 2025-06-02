@@ -29,24 +29,23 @@ public class PuntuacionController {
 
     @PostMapping("/{idRuta}/puntuar")
     public String puntuar(@PathVariable Long idRuta, @RequestParam int estrellas, Principal principal, RedirectAttributes redirectAttributes) {
+       //obtener usuario autenticado a partir del correo
         Optional<Usuario> usuarioOptional = usuarioRespository.findByCorreoElectronico(principal.getName());
+        //buscar la ruta a puntuar por su id
         Ruta ruta = rutaRepository.findById(idRuta).orElseThrow(() -> new RuntimeException("Ruta no enontrada"));
-
+//si no se encuentra usuairo redirigir al login
         if (!usuarioOptional.isPresent()) {
             redirectAttributes.addFlashAttribute("error", "Usuario no encontrado");
             return "redirect:/login";
         }
         Usuario usuario = usuarioOptional.get();
-        if (ruta == null) {
-            redirectAttributes.addFlashAttribute("error", "Ruta no encontrada");
-            return "redirect:/rutas";
-        }
 
+//crear objeto puntuacion
         Puntuacion puntuacion = new Puntuacion();
         puntuacion.setIdUsuario(usuario);
         puntuacion.setIdRuta(ruta);
         puntuacion.setPuntuacion((long) estrellas);
-
+//guardar o actualizaar la puntuacion
         puntuacionService.guardarOPuntuar(puntuacion);
         redirectAttributes.addFlashAttribute("exito", "Puntuacion guardada correctamente");
         return "redirect:/rutas/" + idRuta;

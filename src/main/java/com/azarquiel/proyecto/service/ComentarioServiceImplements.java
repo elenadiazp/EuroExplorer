@@ -1,7 +1,6 @@
 package com.azarquiel.proyecto.service;
 
 import com.azarquiel.proyecto.daos.ComentarioRepository;
-import com.azarquiel.proyecto.daos.RutaRepository;
 import com.azarquiel.proyecto.dto.RutaDto;
 import com.azarquiel.proyecto.entidades.Comentario;
 import com.azarquiel.proyecto.entidades.Ruta;

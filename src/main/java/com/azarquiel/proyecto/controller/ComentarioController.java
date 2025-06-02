@@ -1,8 +1,6 @@
 package com.azarquiel.proyecto.controller;
 
 import com.azarquiel.proyecto.dto.RutaDto;
-import com.azarquiel.proyecto.entidades.Comentario;
-import com.azarquiel.proyecto.entidades.Ruta;
 import com.azarquiel.proyecto.entidades.Usuario;
 import com.azarquiel.proyecto.service.ComentarioService;
 import com.azarquiel.proyecto.service.RutaService;

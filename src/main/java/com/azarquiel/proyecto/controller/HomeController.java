@@ -36,6 +36,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model, Principal principal, HttpServletRequest request) {
+      //comprobación autenticación del usuario
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
             System.out.println("usuario  autenticado bien");
@@ -44,12 +45,12 @@ public class HomeController {
         }else{
             System.out.println("usuario no autenticado");
         }
-
+//obtener las 3 rutas mejores valoradas
         List<RutaDto> mejoresRutas = rutaService.obtenerTop3MejorValoradas();
-
+//preparar mapas para puntuaciones medias y favoritos
         Map<Long, Double> puntuacionesMedias = new HashMap<>();
         Map<Long, Boolean> favoritos = new HashMap<>();
-
+//si hay usuario autenticado, obtener id
         Long usuarioId = null;
         if (principal != null) {
             String correo = principal.getName();
@@ -58,6 +59,7 @@ public class HomeController {
                 usuarioId = usuario.getId();
             }
         }
+        //para cada ruta mejor valorada, calcular punutación media y si es favorita del usuario
         for(RutaDto ruta : mejoresRutas){
             Double media = puntuacionService.calcularPuntuacionMedia(ruta.getId());
             puntuacionesMedias.put(ruta.getId(), media != null ? media : 0.0);
@@ -72,7 +74,7 @@ public class HomeController {
         model.addAttribute("mejoresRutas", mejoresRutas);
         model.addAttribute("puntuacionesMedias", puntuacionesMedias);
         model.addAttribute("favoritos", favoritos);
-
+//obtener la URL actual
         String url = request.getRequestURI();
         if(request.getQueryString() != null){
             url += "?" + request.getQueryString();

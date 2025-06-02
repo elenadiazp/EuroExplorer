@@ -24,7 +24,7 @@ public class RutaDto implements Serializable {
     private final Set<Puntuacion> puntuacions;
     private final String nombrePais;
 
-    public RutaDto(Long id, TipoRuta idtiporuta, Region idregion, String foto1, String foto2, String nombre, String intinerario, String otrosDatos, String direccion, Set<Comentario> comentarios, Set<Favorito> favoritos, Set<Puntuacion> puntuacions) {
+    public RutaDto(Long id, TipoRuta idtiporuta, Region idregion, String foto1, String foto2, String nombre, String intinerario, String direccion, String otrosDatos,  Set<Comentario> comentarios, Set<Favorito> favoritos, Set<Puntuacion> puntuacions) {
         this.id = id;
         this.idtiporuta = idtiporuta;
         this.idregion = idregion;
@@ -32,8 +32,9 @@ public class RutaDto implements Serializable {
         this.foto2 = foto2;
         this.nombre = nombre;
         this.intinerario = intinerario;
-        this.otrosDatos = otrosDatos;
         this.direccion = direccion;
+        this.otrosDatos = otrosDatos;
+
         this.comentarios = comentarios;
         this.favoritos = favoritos;
         this.puntuacions = puntuacions;

@@ -31,10 +31,11 @@ public class PaisController {
     @GetMapping("/buscar")
     @ResponseBody
     public List<PaisDto> buscarPaises(@RequestParam(required = false) String query) {
-    if(query==null || query.trim().isEmpty()) {
+    //si no se proporciona nada en la busqueda, se devuelven todos los paises
+        if(query==null || query.trim().isEmpty()) {
         return paisService.findAll();
     }
-
+    //buscar países cuyo nombre coincida con los parametros
     return paisService.buscarPorNombre(query);
     }
 }

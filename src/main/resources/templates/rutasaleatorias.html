@@ -98,7 +98,7 @@
         </div>
 
     </section>
-
+    <!--Rutas costeras-->
     <section class="mt-5 mb-5">
         <div class="container  mt-5 mb-5">
 
@@ -117,7 +117,10 @@
                                  alt="Imagen de ${ruta.nombre}" />
                             <div class="card-body d-flex flex-column h-100">
                                 <h4 class="card-title" th:text="${ruta.nombre}"></h4>
-                                <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.nombre}"></span>
+                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                    <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getIdPais().getNombre()}"></span>
+                                    <span class="badge bg-etiqueta mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getNombre()}"></span>
+                                </div>
                                 <p class="card-text text-warning">
                                     <span th:with="media=${puntuacionesMedias[ruta.id]}">
                                         <i class="fa fa-star"
@@ -168,6 +171,8 @@
             </div>
         </div>
 
+        <!--Rutas naturaleza-->
+
     </section>
     <section class="mt-5 mb-5">
         <div class="container  mt-5 mb-5">
@@ -187,7 +192,10 @@
                                  alt="Imagen de ${ruta.nombre}" />
                             <div class="card-body d-flex flex-column h-100">
                                 <h4 class="card-title" th:text="${ruta.nombre}"></h4>
-                                <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.nombre}"></span>
+                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                    <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getIdPais().getNombre()}"></span>
+                                    <span class="badge bg-etiqueta mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getNombre()}"></span>
+                                </div>
                                 <p class="card-text text-warning">
                                     <span th:with="media=${puntuacionesMedias[ruta.id]}">
                                         <i class="fa fa-star"
@@ -238,6 +246,8 @@
         </div>
     </section>
 
+    <!--Rutas culturales-->
+
     <section class="mt-5 mb-5">
         <div class="container  mt-5 mb-5">
 
@@ -256,7 +266,10 @@
                                  alt="Imagen de ${ruta.nombre}" />
                             <div class="card-body d-flex flex-column h-100">
                                 <h4 class="card-title" th:text="${ruta.nombre}"></h4>
-                                <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.nombre}"></span>
+                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                    <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getIdPais().getNombre()}"></span>
+                                    <span class="badge bg-etiqueta mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getNombre()}"></span>
+                                </div>
                                 <p class="card-text text-warning">
                                     <span th:with="media=${puntuacionesMedias[ruta.id]}">
                                         <i class="fa fa-star"
@@ -321,7 +334,7 @@
         <a th:href="@{/rutas/aleatorias}">Aleatorio</a>
 
     </p>
-    <p>Proyecto DAW realizado por Elena Diaz Pérez</p>
+    <p>Proyecto DAW realizado por Elena Díaz Pérez</p>
 </footer>
 <!-- Bootstrap JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

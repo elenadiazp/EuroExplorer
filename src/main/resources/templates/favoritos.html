@@ -97,8 +97,14 @@
                              alt="Imagen de ${ruta.nombre}" />
                         <div class="card-body d-flex flex-column h-100">
                             <h4 class="card-title" th:text="${ruta.nombre}"></h4>
-                            <span  th:if="${ruta.idregion != null and ruta.idregion.getIdPais() != null}" class="badge bg-primary mb-2"
-                                  th:text="${ruta.idregion.getIdPais().nombre}" style="max-width: fit-content;"></span>
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                <span class="badge bg-primary mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getIdPais().getNombre()}"></span>
+                                <span class="badge bg-etiqueta mb-2" style="max-width: fit-content;" th:text="${ruta.idregion.getNombre()}"></span>
+                            </div>
+
+
+                            <!--puntuacion media-->
+
                             <p class="card-text text-warning">
                                     <span th:if="${puntuacionesMedias !=  mull}" th:with="media=${puntuacionesMedias[ruta.id]}">
                                         <i class="fa fa-star"
@@ -116,6 +122,8 @@
                             </p>
                             <div class="mt-auto d-flex justify-content-between align-items-center ">
                                 <div class="col-6"> <a th:href="@{/rutas/{id}(id=${ruta.id})}" class="btn-1">Ver más</a></div>
+
+                                <!--quitar ruta de favoritos-->
 
                             <div class="col-6 text-end botton-0">
                                 <form th:action="@{/favoritos/eliminar}" method="post">
@@ -152,7 +160,7 @@
         <a th:href="@{/rutas/aleatorias}">Aleatorio</a>
 
     </p>
-    <p>Proyecto DAW realizado por Elena Diaz Pérez</p>
+    <p>Proyecto DAW realizado por Elena Díaz Pérez</p>
 </footer>
 <!-- Bootstrap JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

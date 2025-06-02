@@ -46,6 +46,7 @@ public class RutaController {
             String correo = principal.getName();
             Usuario usuario = usuarioService.buscarPorCorreo(correo).orElse(null);
             if(usuario != null){
+                //obtener las rutas favoritas y cojer el id
                 List<Ruta> favoritas = favoritoService.obtenerFavoritos(usuario.getId());
                 Set<Long> idsFavoritos =favoritas.stream().map(Ruta::getId).collect(Collectors.toSet());
                 model.addAttribute("idsFavoritos", idsFavoritos);
@@ -60,14 +61,14 @@ public class RutaController {
     );
     @GetMapping("/rutas/pais/{id}")
     public  String rutasPorPais(@PathVariable Long id, @RequestParam(required = false) List<String> tiposRutaIds, @RequestParam(required = false) List<String> regionIds , Model model, Principal principal, HttpServletRequest request){
-
+    //convertir los filtros de tipo y región a listas de Long
         List<Long> tiposRutaLong = tiposRutaIds !=null ? tiposRutaIds.stream().map(Long::valueOf).toList() : null;
         List<Long> regionesLong = regionIds !=null ? regionIds.stream().map(Long::valueOf).toList() : null;
 
-
+//buscar las rutas filtradas
         List<Ruta> rutas=rutaService.buscarRutas(id, tiposRutaLong, regionesLong);
 
-
+//calcular puntuaciones medias para cada ruta
         Map<Long, Double> medias = new HashMap<>();
         for(Ruta ruta : rutas){
             Double media = puntuacionService.calcularPuntuacionMedia(ruta.getId());
@@ -75,6 +76,7 @@ public class RutaController {
         }
 
 
+        //obtener el país
         PaisDto paisDto= paisService.findById(id);
 
         model.addAttribute("pais", paisDto);
@@ -84,6 +86,7 @@ public class RutaController {
         model.addAttribute("tiposRutaIds", tiposRutaIds);
         model.addAttribute("regionIds", regionIds);
 
+        //añadir filtros usados
         if(regionIds != null && !regionIds.isEmpty()){
             List<String> nombreRegiones = paisDto.getRegions().stream().filter(r -> regionIds.contains(r.getId().toString())).map(Region::getNombre).toList();
             model.addAttribute("filtrosRegiones", nombreRegiones);
@@ -92,7 +95,10 @@ public class RutaController {
             List<String> filtrosTexto = tiposRutaIds.stream().map(Long::valueOf).map(mapaTiposRuta::get).toList();
             model.addAttribute("filtrosTexto", filtrosTexto);
         }
+        //añadir favoritos
         añadirFavoritosAlModel(model,principal);
+
+        //guardar URL actual
         String url = request.getRequestURI();
         if(request.getQueryString() != null){
             url += "?" + request.getQueryString();
@@ -101,22 +107,27 @@ public class RutaController {
 
         return "rutas";
     }
+
     @GetMapping("/rutas/{id}")
     public  String rutasPorRuta(@PathVariable Long id, Model model, Principal principal, HttpServletRequest request, @RequestParam(defaultValue = "0") int pagina, @RequestParam(defaultValue = "2") int tamanio){
         RutaDto ruta =rutaService.findById(id);
         model.addAttribute("ruta", ruta);
 
         if(principal != null){
+          //comprobar si el usuario está autenticado
             String correo = principal.getName();
             Usuario usuario = usuarioService.buscarPorCorreo(correo).orElse(null);
             model.addAttribute("usuarioAutenticado", usuario);
             if(usuario != null){
+                //saber si la ruta es favorita del usuario
                 boolean esFavorito= favoritoService.esFavorito(id, usuario.getId());
                 model.addAttribute("esFavorito", esFavorito);
 
+                //mostrar puntuacion del usuario
                 Optional<Puntuacion> puntuacionOptional= puntuacionService.buscarPorUsuarioYRuta(usuario.getId(), ruta.getId());
                 puntuacionOptional.ifPresent(p -> model.addAttribute("puntuacionUsuario", p));
 
+                //mostrar comentarios del usuario
                 Comentario comentarioUsuario= comentarioService.findByUsuarioAndRuta(usuario,ruta);
                 model.addAttribute("comentarioUsuario", comentarioUsuario);
 
@@ -124,18 +135,18 @@ public class RutaController {
             }}else{
             model.addAttribute("usuarioAutenticado", null);
         }
-
+//paginacion comentarios
         Page<Comentario> paginaComentarios = comentarioService.findComentarioByRuta(id, pagina, tamanio);
         model.addAttribute("paginaComentarios", paginaComentarios);
         model.addAttribute("todosComentarios", paginaComentarios.getContent());
 
-
+//todos los comentarios
         List<Comentario>todosComentarios = comentarioService.findAllByRuta(ruta);
         model.addAttribute("todosComentarios", todosComentarios);
-
+//puntuacion media de la ruta
         Double media = puntuacionService.calcularPuntuacionMedia(ruta.getId());
        model.addAttribute("puntuacionMedia", media != null ? media : 0.0);
-
+//guardar URL actual
         String url = request.getRequestURI();
         if(request.getQueryString() != null){
             url += "?" + request.getQueryString();
@@ -146,10 +157,13 @@ public class RutaController {
         return "detalleruta";
     }
 
+
     @GetMapping("/rutas/tipo/{tipo}")
     public String rutasPorTipo (@PathVariable String tipo,@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "12") int size, Model model, Principal principal, HttpServletRequest request){
         Pageable pageable= PageRequest.of(page, size);
+        //buscar rutas del tipo con paginacion
         Page<RutaDto> rutas=rutaService.findByTipo(tipo, pageable);
+        //calcular puntutacion media de cada ruta
         Map<Long, Double> medias = new HashMap<>();
         for(RutaDto ruta : rutas.getContent()){
             Double media = puntuacionService.calcularPuntuacionMedia(ruta.getId());
@@ -164,7 +178,10 @@ public class RutaController {
         model.addAttribute("tipo",tipo);
         model.addAttribute("puntuacionesMedias", medias);
 
+        //añadir a favoritos
         añadirFavoritosAlModel(model, principal);
+
+        //guardar URL actual
         String url = request.getRequestURI();
         if(request.getQueryString() != null){
             url += "?" + request.getQueryString();
@@ -179,6 +196,7 @@ public class RutaController {
         List<RutaDto>rutaNaturaleza=rutaService.rutasAleatoriasPorTipo("naturaleza");
         List<RutaDto>rutaCultural=rutaService.rutasAleatoriasPorTipo("cultural");
 
+        //calcular puntuacion media de todas las rutas
         Map<Long, Double> medias = new HashMap<>();
         List<RutaDto> todas = new ArrayList<>();
         todas.addAll(rutaCosta);
@@ -197,7 +215,7 @@ public class RutaController {
 
 
 
-
+//guardar URL actual
         String url = request.getRequestURI();
         if(request.getQueryString() != null){
             url += "?" + request.getQueryString();

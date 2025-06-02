@@ -76,6 +76,8 @@
     <section class="container mt-5 ">
         <div class="text-center mb-5">
             <h1 class="display-4" th:text="${ruta.nombre}"></h1>
+
+            <!--puntuación media-->
             <form th:action="@{/favoritos/eliminar}" method="post">
                 <input type="hidden" name="idRuta" th:value="${ruta.id}" />
                 <input type="hidden" name="redirectUrl" th:value="${currentUrl}">
@@ -86,10 +88,13 @@
                             <i class="fa fa-star fa-lg" th:classappend="${media >=3} ? 'text-warning' : 'text-muted'"></i>
                             <i class="fa fa-star fa-lg" th:classappend="${media >=4} ? 'text-warning' : 'text-muted'"></i>
                             <i class="fa fa-star fa-lg" th:classappend="${media >=5} ? 'text-warning' : 'text-muted'"></i>
-                            <span th:text="${puntuacionMedia}"></span>
+                            <span th:text="|(${#numbers.formatDecimal(puntuacionMedia, 1,1)})|" ></span>
 
                         </span>
                 </p>
+
+                <!--favorito o no-->
+
                 <button type="submit" style="background: none; border: none;">
                         <span th:if="${esFavorito}">
                            <i class="fas fa-heart text-danger fa-2x"></i>
@@ -100,6 +105,7 @@
                 </button>
             </form>
         </div>
+        <!--información-->
         <div class="rounded p-4 shadow-sm fondo">
             <div class="mb-3">
                 <p class="fw-bold mb-1">Itinerario</p>
@@ -110,6 +116,7 @@
                 <p th:text="${ruta.direccion}"></p>
             </div>
             <div class="mb-3">
+
                 <p class="fw-bold mb-1">Otros datos</p>
                 <p th:text="${ruta.otrosDatos}"></p>
             </div>
@@ -128,6 +135,9 @@
 
         </div>
     </section>
+
+    <!--puntuar ruta-->
+
     <section class="container my-5 pt-5 ">
         <div class="row align-items-center">
             <div class="col-12 col-lg-10 text-center text-lg-start">
@@ -170,6 +180,9 @@
         </div>
 
     </section>
+
+    <!-- tu comentario-->
+
     <div class="container mt-5">
         <div class="row justify-content-center align-items-start">
 
@@ -179,11 +192,13 @@
         <h2 class="display-5 mb-4">Tu comentario</h2>
 
         <!-- si usuario autenticado -->
+
         <div th:if="${usuarioAutenticado != null}">
 
             <div th:if="${mensaje != null}" class="alert alert-success">
               <p th:text="${mensaje}"></p>
             </div>
+
             <!-- si ya ha comentado -->
 
             <div th:if="${comentarioUsuario != null}" >
@@ -198,7 +213,9 @@
                         Eliminar comentario
                     </button>
              </form>
+
                 <!-- editar comentario -->
+
             <form th:action="@{/rutas/{id}/comentar(id=${ruta.id})}" method="post">
                 <textarea class="p-2" name="comentarioTexto" rows="4" cols="50"
                           th:text="${comentarioUsuario != null } ? ${comentarioUsuario.comentario} : ''"
@@ -215,6 +232,7 @@
 
 
         <!-- si no ha comentado -->
+
         <div th:if="${comentarioUsuario == null}">
             <p >No has comentado esta ruta aún.</p>
             <form th:action="@{/rutas/{id}/comentar(id=${ruta.id})}" method="post">
@@ -227,12 +245,14 @@
             </form>
         </div>
         </div>
+
         <!-- no autenticado -->
 
         <div th:unless="${usuarioAutenticado != null}" class=" mt-3 ">
             <p class="lead">Para comentar, debes <a th:href="@{/login}" class="btn-1">iniciar sesión</a></p>
         </div>
     </section>
+
 
     <!--comentarios otros users-->
 <section class="col-lg-6 col-12 mb-5 fondo rounded " >
@@ -294,7 +314,7 @@
         <a th:href="@{/rutas/aleatorias}">Aleatorio</a>
 
     </p>
-    <p>Proyecto DAW realizado por Elena Diaz Pérez</p>
+    <p>Proyecto DAW realizado por Elena Díaz Pérez</p>
 </footer>
 <!-- Bootstrap JavaScript Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
