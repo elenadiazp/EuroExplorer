@@ -1,4 +1,4 @@
-# EuroExplorer <img src="src/main/resources/static/img/logo.jpg" alt="logo" width="30"/>
+# EuroExplorer <img src="src/main/resources/static/img/logo.jpg" alt="logo" width="80"/>
 
 **Elena Díaz Pérez**  
 Proyecto Final - 2º DAW (S2DAW)  
