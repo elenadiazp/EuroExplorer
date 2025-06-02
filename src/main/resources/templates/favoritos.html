@@ -129,7 +129,7 @@
                                 <form th:action="@{/favoritos/eliminar}" method="post">
                                     <input type="hidden" name="redirectUrl" th:value="${currentUrl}">
                                     <input type="hidden" name="idRuta" th:value="${ruta.id}">
-                                    <button type="submit" class="btn btn-danger">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Seguro que quieres eliminar esta ruta de favoritos')">
                                         <i class="fas fa-heart-broken text-white"></i> Quitar de favoritos
                                     </button>
                                 </form>
