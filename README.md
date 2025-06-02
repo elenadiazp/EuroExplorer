@@ -10,7 +10,7 @@ Proyecto Final - 2º DAW (S2DAW)
 
 🔗 [Repositorio en GitHub](https://github.com/elenadiazp/EuroExplorer)  
 🔗 [Proyecto desplegado en Render](https://euroexplorer.onrender.com)  
-📄 [Documentación del proyecto (PDF)](./documentacion.pdf) 
+📄 [Documentación del proyecto (PDF)](./Documentación EuroExplorer Elena Díaz Pérez.pdf) 
 
 ---
 
